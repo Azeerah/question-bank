@@ -1,0 +1,27 @@
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: #f6f3ec;
+  color: #1e2a38;
+}
+
+/* Perforated top edge on the quiz card — the signature element */
+.punch-edge {
+  position: relative;
+}
+.punch-edge::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 0;
+  right: 0;
+  height: 14px;
+  background-image: radial-gradient(circle, #f6f3ec 5px, transparent 5.5px);
+  background-size: 24px 14px;
+  background-position: 12px 0;
+  background-repeat: repeat-x;
+}

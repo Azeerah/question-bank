@@ -1,0 +1,14 @@
+[
+  {
+    "question": "Which vitamin deficiency causes scurvy?",
+    "choice_a": "Vitamin A",
+    "choice_b": "Vitamin C",
+    "choice_c": "Vitamin D",
+    "choice_d": "Vitamin K",
+    "correct_answer": "B",
+    "rationale": "Vitamin C is needed to build collagen, which holds skin, blood vessels, and gums together. Without it, those tissues break down, causing scurvy.",
+    "why_wrong": "A) Vitamin A is about vision and skin cell health, not collagen. C) Vitamin D helps you absorb calcium for bones, not collagen. D) Vitamin K helps blood clot, it doesn't build collagen.",
+    "memory_aid": "Think 'C' for Citrus and Collagen — both start with C, and citrus fruits are the classic source of vitamin C.",
+    "category": "Nutrition"
+  }
+]
