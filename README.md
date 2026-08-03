@@ -6,8 +6,8 @@ correct answer, rationale, a plain-language explanation of why the other
 answers are wrong, and a memory aid.
 
 This app is built to run **entirely free** on GitHub + Vercel + Supabase,
-with an optional paid add-on (Anthropic API) for auto-generating the
-"why wrong" and "memory aid" fields.
+including AI-generated "why wrong" and "memory aid" fields via Google
+Gemini's free tier.
 
 ---
 
@@ -50,22 +50,24 @@ with an optional paid add-on (Anthropic API) for auto-generating the
    |---|---|
    | `NEXT_PUBLIC_SUPABASE_URL` | your Supabase Project URL |
    | `SUPABASE_SERVICE_ROLE_KEY` | your Supabase service_role key |
-   | `ANTHROPIC_API_KEY` | *(optional, see step 4)* |
+   | `GEMINI_API_KEY` | *(optional, free — see step 4)* |
 4. Click **Deploy**. In about a minute you'll get a live URL like
    `question-bank-yourname.vercel.app` — that's your working site.
 
 Every time you push new code to GitHub, Vercel redeploys automatically.
 
-## 4. (Optional) Auto-generate wrong-answer explanations & memory aids
+## 4. (Optional, free) Auto-generate wrong-answer explanations & memory aids
 
-This feature calls the Anthropic API from the "Add Question" page, so it
-costs a small amount per question (typically a fraction of a cent) — it's
-the one part of this project that isn't free.
+This feature calls Google's Gemini API from the "Add Question" page. Using
+Gemini's free tier, this costs nothing at this app's usage level (the free
+tier's daily/per-minute limits are well above ~30 questions/day). Google
+does change free-tier terms occasionally — check
+https://ai.google.dev/gemini-api/docs/pricing if this ever starts erroring.
 
-1. Go to https://console.anthropic.com/settings/keys and create an API key.
-   Add a small amount of credit to your account.
+1. Go to https://aistudio.google.com/apikey and create a free API key
+   (no credit card required).
 2. In Vercel: **Project → Settings → Environment Variables**, add
-   `ANTHROPIC_API_KEY` with that key.
+   `GEMINI_API_KEY` with that key.
 3. Redeploy (Vercel → Deployments → ⋯ → Redeploy).
 
 If you skip this, the "Add Question" form still works — you just type the
@@ -104,13 +106,15 @@ and rationale — not the AI-generated wrong-answer explanation or memory aid.
 To fill those in for everything missing them:
 
 ```bash
-set ANTHROPIC_API_KEY=your-anthropic-key
+set GEMINI_API_KEY=your-free-gemini-key
 node scripts/backfill_generate.js
 ```
 
-This processes one question at a time and is safe to stop and re-run later
-— it only picks up questions still missing `why_wrong`. Cost is roughly a
-few dollars for ~1000 questions.
+This processes one question at a time (with a short pause between each to
+respect the free tier's per-minute limit) and is safe to stop and re-run
+later — it only picks up questions still missing `why_wrong`. Free, though
+~1000 questions at a few seconds each will take a while to run — you can
+leave it running in the background.
 
 ## Daily use
 

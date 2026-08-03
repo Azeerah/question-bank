@@ -43,8 +43,9 @@ and run again).
 ## What's been done so far
 1. Built the full app: homepage, `/study` (quiz mode), `/browse`
    (search/view/delete), `/add` (form to add new questions, with an
-   optional "Generate" button that calls the Anthropic API to fill in
-   the two AI-assisted fields below).
+   optional "Generate" button that calls Google Gemini's free-tier API to
+   fill in the two AI-assisted fields below — switched from Anthropic's
+   paid API to Gemini's free tier partway through this project; see D5).
 2. Installed Node.js, Git, and all npm dependencies locally. Fixed a
    Next.js security vulnerability by upgrading to 14.2.35 (ignore any
    npm audit warnings about `sharp` or `postcss` — those are inside
@@ -116,17 +117,18 @@ git push
 ```
 Vercel auto-redeploys within about a minute of the push.
 
-### C. (Optional, ~$2-4 total) Generate why_wrong + memory_aid for all 1057
-1. Get an API key at https://console.anthropic.com/settings/keys (separate
-   from a claude.ai login — this is a pay-per-use developer key).
+### C. (Optional, free) Generate why_wrong + memory_aid for all 1057
+1. Get a free API key at https://aistudio.google.com/apikey (no credit
+   card required — Gemini free tier).
 2. In terminal:
    ```
-   set ANTHROPIC_API_KEY=<the key>
+   set GEMINI_API_KEY=<the key>
    node scripts/backfill_generate.js
    ```
-3. This processes one question at a time (~5-6 minutes for 1057), safe to
-   stop with Ctrl+C and re-run later — it only picks up questions still
-   missing `why_wrong`.
+3. This processes one question at a time with a ~4 sec pause between each
+   (to respect the free tier's per-minute limit) — roughly 70+ minutes for
+   1057, safe to stop with Ctrl+C and re-run later since it only picks up
+   questions still missing `why_wrong`. Leave it running in the background.
 
 ### D2. Weighted study sessions (added after initial launch)
 `/study` now starts with a setup screen: choose a question count (25, 50,
@@ -169,10 +171,24 @@ was done for the original two banks.
 ### D. Ongoing daily use
 - Add ~30 new questions/day directly at `/add` on the live site (works
   from any device, no terminal needed) — the "Generate" button there
-  calls the same Anthropic API per-question if `ANTHROPIC_API_KEY` is
+  calls Gemini's free-tier API per-question if `GEMINI_API_KEY` is
   also set as a Vercel environment variable (Project > Settings >
   Environment Variables > Add, then redeploy).
 - Study at `/study`, browse/search/delete at `/browse`.
+
+### D5. Switched AI generation from Anthropic to Gemini free tier
+Originally `/api/generate/route.js` and `scripts/backfill_generate.js`
+called Anthropic's API (paid, ~$2-4 one-time for the 1057 backfill, ~$1-3/
+month for daily use). Rewrote both to call Google Gemini's free tier
+instead (model: `gemini-2.5-flash` as of when this was written — Google
+does shift which model IDs are free without much notice, check
+https://ai.google.dev/gemini-api/docs/pricing if generation starts
+failing and swap the `MODEL`/model string in both files). Env var renamed
+from `ANTHROPIC_API_KEY` to `GEMINI_API_KEY` everywhere (`.env.example`,
+Vercel settings, README, this file). Get a free key at
+https://aistudio.google.com/apikey — no credit card required. The
+backfill script now paces requests ~4 sec apart to respect the free
+tier's requests-per-minute limit.
 
 ### E. Optional later: custom domain
 Buy a domain anywhere (~$10-15/year), then in Vercel: Project > Settings
