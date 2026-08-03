@@ -137,6 +137,35 @@ the official FMCFM exam breakdown; anything else defaults to weight 10,
 editable in that file). `/browse` also got category filter pills and
 inline category editing; `/add` suggests existing categories as you type.
 
+### D3. Question timer (added after weighted sessions)
+The `/study` setup screen now also has a "Time per question" choice: No
+timer, 30 sec, or 1 min. During the quiz, a countdown shows next to the
+question counter and turns red in the last 5 seconds. If time runs out
+before an answer is chosen, the question auto-reveals as unanswered
+(counted toward `total` but not `correct`) and shows "Time's up — no
+answer selected" above the explanation.
+
+### D4. Daily additions via JSON instead of the /add form
+User plans to compile each day's ~30 new questions into a JSON file (same
+shape as `scripts/questions.json`) rather than using the web form one at a
+time, then run `node scripts/import.js` once per day. Format per question:
+```json
+{
+  "question": "...",
+  "choice_a": "...", "choice_b": "...", "choice_c": "...", "choice_d": "...",
+  "choice_e": "...",           // optional, only for 5-choice questions
+  "correct_answer": "B",
+  "rationale": "...",
+  "why_wrong": "...",          // optional
+  "memory_aid": "...",         // optional
+  "category": "FAM905"         // optional, keep consistent for weighting
+}
+```
+Whatever file they build must be named `questions.json` inside `scripts/`
+(or renamed to that) before running the import command. Claude can also
+convert a Word doc/PDF/messy notes into this format on request, same as
+was done for the original two banks.
+
 ### D. Ongoing daily use
 - Add ~30 new questions/day directly at `/add` on the live site (works
   from any device, no terminal needed) — the "Generate" button there

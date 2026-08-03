@@ -4,12 +4,18 @@ import { useEffect, useState } from "react";
 import { weightedSample } from "../../lib/weights";
 
 const COUNT_OPTIONS = [25, 50, 100, 150, 200];
+const TIMER_OPTIONS = [
+  { label: "No timer", seconds: null },
+  { label: "30 sec / question", seconds: 30 },
+  { label: "1 min / question", seconds: 60 },
+];
 
 export default function StudyPage() {
   const [stage, setStage] = useState("setup"); // "setup" | "quiz"
   const [categories, setCategories] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]); // empty = all
   const [count, setCount] = useState(25);
+  const [timerSeconds, setTimerSeconds] = useState(null);
   const [loadingCats, setLoadingCats] = useState(true);
 
   const [order, setOrder] = useState([]);
@@ -19,6 +25,7 @@ export default function StudyPage() {
   const [score, setScore] = useState({ correct: 0, total: 0 });
   const [starting, setStarting] = useState(false);
   const [setupError, setSetupError] = useState(null);
+  const [timeLeft, setTimeLeft] = useState(null);
 
   useEffect(() => {
     fetch("/api/categories")
@@ -28,6 +35,33 @@ export default function StudyPage() {
         setLoadingCats(false);
       });
   }, []);
+
+  // Reset the countdown whenever a new question is shown (or the quiz starts)
+  useEffect(() => {
+    if (stage === "quiz") {
+      setTimeLeft(timerSeconds);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pos, stage]);
+
+  // Tick the countdown down once per second while a question is unanswered
+  useEffect(() => {
+    if (stage !== "quiz" || revealed || timerSeconds == null || timeLeft == null) return;
+    if (timeLeft <= 0) {
+      handleTimeUp();
+      return;
+    }
+    const id = setTimeout(() => setTimeLeft((t) => t - 1), 1000);
+    return () => clearTimeout(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [timeLeft, revealed, stage, timerSeconds]);
+
+  function handleTimeUp() {
+    if (revealed) return;
+    setSelected(null);
+    setRevealed(true);
+    setScore((s) => ({ correct: s.correct, total: s.total + 1 }));
+  }
 
   function toggleCategory(cat) {
     setSelectedCategories((prev) =>
@@ -125,6 +159,25 @@ export default function StudyPage() {
         </div>
 
         <p className="font-mono text-xs uppercase tracking-wider text-ink/50 mb-3">
+          Time per question
+        </p>
+        <div className="flex gap-2 mb-8 flex-wrap">
+          {TIMER_OPTIONS.map((opt) => (
+            <button
+              key={opt.label}
+              onClick={() => setTimerSeconds(opt.seconds)}
+              className={`font-mono text-sm px-4 py-2 rounded-card border transition-colors ${
+                timerSeconds === opt.seconds
+                  ? "bg-ink text-paper border-ink"
+                  : "border-ink/15 text-ink/70 hover:border-rule"
+              }`}
+            >
+              {opt.label}
+            </button>
+          ))}
+        </div>
+
+        <p className="font-mono text-xs uppercase tracking-wider text-ink/50 mb-3">
           Categories
         </p>
         {loadingCats ? (
@@ -216,6 +269,15 @@ export default function StudyPage() {
         <p className="font-mono text-xs uppercase tracking-wider text-ink/50">
           Question {pos + 1} of {order.length}
         </p>
+        {timerSeconds != null && !revealed && (
+          <p
+            className={`font-mono text-xs uppercase tracking-wider ${
+              timeLeft <= 5 ? "text-incorrect" : "text-ink/50"
+            }`}
+          >
+            {timeLeft}s
+          </p>
+        )}
         <p className="font-mono text-xs uppercase tracking-wider text-rule">
           Score: {score.correct}/{score.total}
         </p>
@@ -255,6 +317,11 @@ export default function StudyPage() {
 
         {revealed && (
           <div className="mt-6 pt-6 border-t border-ink/10 space-y-4">
+            {selected === null && timerSeconds != null && (
+              <p className="font-mono text-xs uppercase tracking-wider text-incorrect">
+                Time's up &mdash; no answer selected
+              </p>
+            )}
             <div>
               <p className="font-mono text-xs uppercase tracking-wider text-correct mb-1">
                 Why {current.correct_answer} is correct
