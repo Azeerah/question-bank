@@ -1,55 +1,90 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { weightedSample } from "../../lib/weights";
+
+const COUNT_OPTIONS = [25, 50, 100, 150, 200];
 
 export default function StudyPage() {
-  const [questions, setQuestions] = useState([]);
+  const [stage, setStage] = useState("setup"); // "setup" | "quiz"
+  const [categories, setCategories] = useState([]);
+  const [selectedCategories, setSelectedCategories] = useState([]); // empty = all
+  const [count, setCount] = useState(25);
+  const [loadingCats, setLoadingCats] = useState(true);
+
   const [order, setOrder] = useState([]);
   const [pos, setPos] = useState(0);
   const [selected, setSelected] = useState(null);
   const [revealed, setRevealed] = useState(false);
-  const [loading, setLoading] = useState(true);
   const [score, setScore] = useState({ correct: 0, total: 0 });
+  const [starting, setStarting] = useState(false);
+  const [setupError, setSetupError] = useState(null);
 
   useEffect(() => {
-    fetch("/api/questions")
+    fetch("/api/categories")
       .then((r) => r.json())
       .then((data) => {
-        const qs = data.questions || [];
-        setQuestions(qs);
-        setOrder(shuffle(qs.map((_, i) => i)));
-        setLoading(false);
+        setCategories(data.categories || []);
+        setLoadingCats(false);
       });
   }, []);
 
-  function shuffle(arr) {
-    const a = [...arr];
-    for (let i = a.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [a[i], a[j]] = [a[j], a[i]];
-    }
-    return a;
+  function toggleCategory(cat) {
+    setSelectedCategories((prev) =>
+      prev.includes(cat) ? prev.filter((c) => c !== cat) : [...prev, cat]
+    );
   }
 
-  if (loading) return <p className="text-ink/60">Loading questions&hellip;</p>;
-  if (questions.length === 0)
-    return (
-      <p className="text-ink/60">
-        No questions yet.{" "}
-        <a href="/add" className="text-rule underline">
-          Add your first one.
-        </a>
-      </p>
-    );
+  function toggleAll() {
+    setSelectedCategories([]);
+  }
 
-  const current = questions[order[pos]];
+  async function startQuiz() {
+    setSetupError(null);
+    setStarting(true);
+    try {
+      const activeCats =
+        selectedCategories.length > 0
+          ? selectedCategories
+          : categories.map((c) => c.category);
+
+      const byCategory = {};
+      await Promise.all(
+        activeCats.map(async (cat) => {
+          const params = new URLSearchParams({ category: cat });
+          const res = await fetch(`/api/questions?${params}`);
+          const data = await res.json();
+          byCategory[cat] = data.questions || [];
+        })
+      );
+
+      const available = Object.values(byCategory).reduce((sum, arr) => sum + arr.length, 0);
+      if (available === 0) {
+        setSetupError("No questions found in the selected categories.");
+        setStarting(false);
+        return;
+      }
+
+      const picked = weightedSample(byCategory, Math.min(count, available));
+      setOrder(picked);
+      setPos(0);
+      setSelected(null);
+      setRevealed(false);
+      setScore({ correct: 0, total: 0 });
+      setStage("quiz");
+    } catch (err) {
+      setSetupError(err.message);
+    } finally {
+      setStarting(false);
+    }
+  }
 
   function choose(letter) {
     if (revealed) return;
     setSelected(letter);
     setRevealed(true);
     setScore((s) => ({
-      correct: s.correct + (letter === current.correct_answer ? 1 : 0),
+      correct: s.correct + (letter === order[pos].correct_answer ? 1 : 0),
       total: s.total + 1,
     }));
   }
@@ -57,9 +92,110 @@ export default function StudyPage() {
   function next() {
     setSelected(null);
     setRevealed(false);
-    setPos((p) => (p + 1) % order.length);
+    setPos((p) => p + 1);
   }
 
+  if (stage === "setup") {
+    return (
+      <div>
+        <h1 className="font-display text-3xl text-ink mb-2">Set up your session</h1>
+        <p className="text-ink/60 mb-8 max-w-xl">
+          Choose how many questions and which categories &mdash; when you
+          pick more than one category, questions are drawn proportionally
+          to each course's real exam weight.
+        </p>
+
+        <p className="font-mono text-xs uppercase tracking-wider text-ink/50 mb-3">
+          Number of questions
+        </p>
+        <div className="flex gap-2 mb-8 flex-wrap">
+          {COUNT_OPTIONS.map((n) => (
+            <button
+              key={n}
+              onClick={() => setCount(n)}
+              className={`font-mono text-sm px-4 py-2 rounded-card border transition-colors ${
+                count === n
+                  ? "bg-ink text-paper border-ink"
+                  : "border-ink/15 text-ink/70 hover:border-rule"
+              }`}
+            >
+              {n}
+            </button>
+          ))}
+        </div>
+
+        <p className="font-mono text-xs uppercase tracking-wider text-ink/50 mb-3">
+          Categories
+        </p>
+        {loadingCats ? (
+          <p className="text-ink/60">Loading&hellip;</p>
+        ) : categories.length === 0 ? (
+          <p className="text-ink/60">
+            No questions yet.{" "}
+            <a href="/add" className="text-rule underline">
+              Add your first one.
+            </a>
+          </p>
+        ) : (
+          <div className="flex flex-wrap gap-2 mb-8">
+            <button
+              onClick={toggleAll}
+              className={`font-mono text-xs uppercase tracking-wider px-3 py-1.5 rounded-card border transition-colors ${
+                selectedCategories.length === 0
+                  ? "bg-rule text-paper border-rule"
+                  : "border-ink/15 text-ink/70 hover:border-rule"
+              }`}
+            >
+              All categories
+            </button>
+            {categories.map(({ category, count: catCount }) => (
+              <button
+                key={category}
+                onClick={() => toggleCategory(category)}
+                className={`font-mono text-xs uppercase tracking-wider px-3 py-1.5 rounded-card border transition-colors ${
+                  selectedCategories.includes(category)
+                    ? "bg-rule text-paper border-rule"
+                    : "border-ink/15 text-ink/70 hover:border-rule"
+                }`}
+              >
+                {category} <span className="opacity-60">({catCount})</span>
+              </button>
+            ))}
+          </div>
+        )}
+
+        {setupError && <p className="text-incorrect text-sm mb-4">{setupError}</p>}
+
+        <button
+          onClick={startQuiz}
+          disabled={starting || categories.length === 0}
+          className="bg-ink text-paper font-mono text-xs uppercase tracking-wider px-6 py-3 rounded-card hover:bg-rule transition-colors disabled:opacity-50"
+        >
+          {starting ? "Building session…" : "Start studying"}
+        </button>
+      </div>
+    );
+  }
+
+  // stage === "quiz"
+  if (pos >= order.length) {
+    return (
+      <div className="punch-edge bg-card border border-ink/10 rounded-card p-8 text-center">
+        <h2 className="font-display text-2xl text-ink mb-2">Session complete</h2>
+        <p className="text-ink/70 mb-6">
+          You scored {score.correct} out of {score.total}.
+        </p>
+        <button
+          onClick={() => setStage("setup")}
+          className="bg-ink text-paper font-mono text-xs uppercase tracking-wider px-6 py-3 rounded-card hover:bg-rule transition-colors"
+        >
+          New session
+        </button>
+      </div>
+    );
+  }
+
+  const current = order[pos];
   const choices = [
     ["A", current.choice_a],
     ["B", current.choice_b],
@@ -71,6 +207,12 @@ export default function StudyPage() {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
+        <button
+          onClick={() => setStage("setup")}
+          className="font-mono text-xs uppercase tracking-wider text-ink/50 hover:text-rule"
+        >
+          &larr; End session
+        </button>
         <p className="font-mono text-xs uppercase tracking-wider text-ink/50">
           Question {pos + 1} of {order.length}
         </p>
@@ -80,6 +222,11 @@ export default function StudyPage() {
       </div>
 
       <div className="punch-edge bg-card border border-ink/10 rounded-card p-8">
+        {current.category && (
+          <p className="font-mono text-[10px] uppercase tracking-wider text-rule mb-3">
+            {current.category}
+          </p>
+        )}
         <h2 className="font-display text-2xl text-ink leading-snug mb-6">
           {current.question}
         </h2>

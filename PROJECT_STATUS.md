@@ -128,6 +128,15 @@ Vercel auto-redeploys within about a minute of the push.
    stop with Ctrl+C and re-run later — it only picks up questions still
    missing `why_wrong`.
 
+### D2. Weighted study sessions (added after initial launch)
+`/study` now starts with a setup screen: choose a question count (25, 50,
+100, 150, 200) and one, several, or all categories. When multiple
+categories are selected, questions are drawn proportionally to each
+course's real exam weight (see `lib/weights.js` — FAM901-915 weights match
+the official FMCFM exam breakdown; anything else defaults to weight 10,
+editable in that file). `/browse` also got category filter pills and
+inline category editing; `/add` suggests existing categories as you type.
+
 ### D. Ongoing daily use
 - Add ~30 new questions/day directly at `/add` on the live site (works
   from any device, no terminal needed) — the "Generate" button there
