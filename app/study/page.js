@@ -66,6 +66,7 @@ export default function StudyPage() {
     ["C", current.choice_c],
     ["D", current.choice_d],
   ];
+  if (current.choice_e) choices.push(["E", current.choice_e]);
 
   return (
     <div>

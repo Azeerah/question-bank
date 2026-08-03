@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const empty = {
   question: "",
@@ -8,6 +8,7 @@ const empty = {
   choice_b: "",
   choice_c: "",
   choice_d: "",
+  choice_e: "",
   correct_answer: "A",
   rationale: "",
   why_wrong: "",
@@ -21,6 +22,13 @@ export default function AddPage() {
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState(null);
   const [error, setError] = useState(null);
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    fetch("/api/categories")
+      .then((r) => r.json())
+      .then((data) => setCategories((data.categories || []).map((c) => c.category)));
+  }, []);
 
   function update(field, value) {
     setForm((f) => ({ ...f, [field]: value }));
@@ -107,6 +115,14 @@ export default function AddPage() {
               />
             </Field>
           ))}
+          <Field label="Choice E (optional, if 5 choices)">
+            <input
+              type="text"
+              value={form.choice_e}
+              onChange={(e) => update("choice_e", e.target.value)}
+              className="w-full border border-ink/15 rounded-card px-4 py-2 bg-card focus:outline-none focus:border-rule"
+            />
+          </Field>
         </div>
 
         <Field label="Correct answer">
@@ -115,7 +131,7 @@ export default function AddPage() {
             onChange={(e) => update("correct_answer", e.target.value)}
             className="border border-ink/15 rounded-card px-4 py-2 bg-card focus:outline-none focus:border-rule"
           >
-            {["A", "B", "C", "D"].map((l) => (
+            {["A", "B", "C", "D", "E"].map((l) => (
               <option key={l} value={l}>
                 {l}
               </option>
@@ -138,8 +154,15 @@ export default function AddPage() {
             type="text"
             value={form.category}
             onChange={(e) => update("category", e.target.value)}
+            list="category-options"
+            placeholder="e.g. FAM905"
             className="w-full border border-ink/15 rounded-card px-4 py-2 bg-card focus:outline-none focus:border-rule"
           />
+          <datalist id="category-options">
+            {categories.map((c) => (
+              <option key={c} value={c} />
+            ))}
+          </datalist>
         </Field>
 
         <div className="border-t border-ink/10 pt-5">

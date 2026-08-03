@@ -31,6 +31,7 @@ export async function GET(request) {
 export async function POST(request) {
   try {
     const body = await request.json();
+    // choice_e is optional — most questions have 4 choices, some have 5
     const required = [
       "question",
       "choice_a",
@@ -59,6 +60,7 @@ export async function POST(request) {
           choice_b: body.choice_b,
           choice_c: body.choice_c,
           choice_d: body.choice_d,
+          choice_e: body.choice_e || null,
           correct_answer: body.correct_answer.toUpperCase(),
           rationale: body.rationale,
           why_wrong: body.why_wrong || null,

@@ -84,14 +84,33 @@ Once your Word document of questions is converted to the JSON shape shown
 in `scripts/questions.example.json`:
 
 1. Save your questions as `scripts/questions.json`.
-2. Run locally (with your Supabase env vars set):
+2. If you already ran the original `schema.sql` before this update, run
+   `supabase/migration_add_choice_e.sql` in the Supabase SQL Editor first
+   (adds support for questions with 5 answer choices instead of 4).
+3. Run locally (with your Supabase env vars set):
    ```bash
    npm install
-   export NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
-   export SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
+   set NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+   set SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
    node scripts/import.js
    ```
+   (On Mac/Linux use `export` instead of `set`.)
 This imports in batches of 100 and prints progress as it goes.
+
+## 7. Backfilling "why wrong" + memory aid after a bulk import
+
+Bulk-imported questions only carry the question, choices, correct answer,
+and rationale — not the AI-generated wrong-answer explanation or memory aid.
+To fill those in for everything missing them:
+
+```bash
+set ANTHROPIC_API_KEY=your-anthropic-key
+node scripts/backfill_generate.js
+```
+
+This processes one question at a time and is safe to stop and re-run later
+— it only picks up questions still missing `why_wrong`. Cost is roughly a
+few dollars for ~1000 questions.
 
 ## Daily use
 

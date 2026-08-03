@@ -4,19 +4,25 @@ import { useEffect, useState } from "react";
 
 export default function BrowsePage() {
   const [questions, setQuestions] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [search, setSearch] = useState("");
+  const [activeCategory, setActiveCategory] = useState("");
   const [openId, setOpenId] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [editingCategoryId, setEditingCategoryId] = useState(null);
+  const [categoryInput, setCategoryInput] = useState("");
 
   useEffect(() => {
     load();
+    loadCategories();
   }, []);
 
-  function load(searchTerm = "") {
+  function load(searchTerm = search, category = activeCategory) {
     setLoading(true);
-    const url = searchTerm
-      ? `/api/questions?search=${encodeURIComponent(searchTerm)}`
-      : "/api/questions";
+    const params = new URLSearchParams();
+    if (searchTerm) params.set("search", searchTerm);
+    if (category) params.set("category", category);
+    const url = `/api/questions${params.toString() ? `?${params}` : ""}`;
     fetch(url)
       .then((r) => r.json())
       .then((data) => {
@@ -25,15 +31,47 @@ export default function BrowsePage() {
       });
   }
 
+  function loadCategories() {
+    fetch("/api/categories")
+      .then((r) => r.json())
+      .then((data) => setCategories(data.categories || []));
+  }
+
   function handleSearch(e) {
     e.preventDefault();
-    load(search);
+    load(search, activeCategory);
+  }
+
+  function selectCategory(cat) {
+    const next = cat === activeCategory ? "" : cat;
+    setActiveCategory(next);
+    load(search, next);
   }
 
   async function handleDelete(id) {
     if (!confirm("Delete this question? This can't be undone.")) return;
     await fetch(`/api/questions/${id}`, { method: "DELETE" });
     setQuestions((qs) => qs.filter((q) => q.id !== id));
+  }
+
+  function startEditCategory(q) {
+    setEditingCategoryId(q.id);
+    setCategoryInput(q.category || "");
+  }
+
+  async function saveCategory(id) {
+    const res = await fetch(`/api/questions/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ category: categoryInput || null }),
+    });
+    if (res.ok) {
+      setQuestions((qs) =>
+        qs.map((q) => (q.id === id ? { ...q, category: categoryInput || null } : q))
+      );
+      loadCategories();
+    }
+    setEditingCategoryId(null);
   }
 
   return (
@@ -45,7 +83,7 @@ export default function BrowsePage() {
         </p>
       </div>
 
-      <form onSubmit={handleSearch} className="mb-8 flex gap-3">
+      <form onSubmit={handleSearch} className="mb-5 flex gap-3">
         <input
           type="text"
           value={search}
@@ -60,6 +98,24 @@ export default function BrowsePage() {
           Search
         </button>
       </form>
+
+      {categories.length > 0 && (
+        <div className="mb-8 flex flex-wrap gap-2">
+          {categories.map(({ category, count }) => (
+            <button
+              key={category}
+              onClick={() => selectCategory(category)}
+              className={`font-mono text-xs uppercase tracking-wider px-3 py-1.5 rounded-card border transition-colors ${
+                activeCategory === category
+                  ? "bg-rule text-paper border-rule"
+                  : "border-ink/15 text-ink/70 hover:border-rule"
+              }`}
+            >
+              {category} <span className="opacity-60">({count})</span>
+            </button>
+          ))}
+        </div>
+      )}
 
       {loading ? (
         <p className="text-ink/60">Loading&hellip;</p>
@@ -76,7 +132,12 @@ export default function BrowsePage() {
                 onClick={() => setOpenId(openId === q.id ? null : q.id)}
                 className="w-full text-left flex items-start justify-between gap-4"
               >
-                <span className="text-ink">{q.question}</span>
+                <div>
+                  <span className="font-mono text-[10px] uppercase tracking-wider text-rule">
+                    {q.category || "Uncategorized"}
+                  </span>
+                  <p className="text-ink mt-1">{q.question}</p>
+                </div>
                 <span className="font-mono text-xs text-ink/40 shrink-0">
                   #{q.id}
                 </span>
@@ -85,7 +146,9 @@ export default function BrowsePage() {
               {openId === q.id && (
                 <div className="mt-4 pt-4 border-t border-ink/10 space-y-3 text-sm">
                   <ul className="grid gap-1">
-                    {["A", "B", "C", "D"].map((letter) => (
+                    {["A", "B", "C", "D", "E"]
+                      .filter((letter) => letter !== "E" || q.choice_e)
+                      .map((letter) => (
                       <li
                         key={letter}
                         className={
@@ -121,6 +184,37 @@ export default function BrowsePage() {
                       {q.memory_aid}
                     </p>
                   )}
+
+                  <div className="flex items-center gap-2 pt-2">
+                    <span className="font-mono text-xs uppercase text-ink/50">
+                      Category:
+                    </span>
+                    {editingCategoryId === q.id ? (
+                      <>
+                        <input
+                          type="text"
+                          value={categoryInput}
+                          onChange={(e) => setCategoryInput(e.target.value)}
+                          className="border border-ink/15 rounded-card px-2 py-1 text-sm bg-card focus:outline-none focus:border-rule"
+                          placeholder="e.g. FAM905"
+                        />
+                        <button
+                          onClick={() => saveCategory(q.id)}
+                          className="font-mono text-xs uppercase text-correct hover:underline"
+                        >
+                          Save
+                        </button>
+                      </>
+                    ) : (
+                      <button
+                        onClick={() => startEditCategory(q)}
+                        className="font-mono text-xs uppercase text-rule hover:underline"
+                      >
+                        {q.category || "Uncategorized"} (edit)
+                      </button>
+                    )}
+                  </div>
+
                   <button
                     onClick={() => handleDelete(q.id)}
                     className="font-mono text-xs uppercase tracking-wider text-incorrect hover:underline mt-2"
