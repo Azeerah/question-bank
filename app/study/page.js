@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { weightedSample } from "../../lib/weights";
+import { computeCategoryShares } from "../../lib/weights";
+import { createBag, drawNext, loadBag, saveBag } from "../../lib/shuffleBag";
 
 const COUNT_OPTIONS = [25, 50, 100, 150, 200];
 const TIMER_OPTIONS = [
@@ -92,14 +93,59 @@ export default function StudyPage() {
         })
       );
 
-      const available = Object.values(byCategory).reduce((sum, arr) => sum + arr.length, 0);
-      if (available === 0) {
+      const availableCounts = Object.fromEntries(
+        activeCats.map((cat) => [cat, byCategory[cat].length])
+      );
+      const totalAvailable = Object.values(availableCounts).reduce(
+        (a, b) => a + b,
+        0
+      );
+      if (totalAvailable === 0) {
         setSetupError("No questions found in the selected categories.");
         setStarting(false);
         return;
       }
 
-      const picked = weightedSample(byCategory, Math.min(count, available));
+      // How many questions to pull from each category this session,
+      // proportional to its exam weight (same math as before).
+      const shares = computeCategoryShares(
+        availableCounts,
+        Math.min(count, totalAvailable)
+      );
+
+      // Pull each category's share from its own persistent shuffle-bag, so
+      // every question in that category gets served exactly once before any
+      // repeat — tracked separately per category, across days/sessions.
+      const questionsById = {};
+      let picked = [];
+      for (const cat of activeCats) {
+        const share = shares[cat] || 0;
+        if (share === 0) continue;
+
+        const ids = byCategory[cat].map((q) => q.id);
+        for (const q of byCategory[cat]) questionsById[q.id] = q;
+
+        const bagKey = `study:${cat}`;
+        let bag = loadBag(bagKey) || createBag(ids);
+        const drawnIds = [];
+        for (let i = 0; i < share; i++) {
+          const { id, bag: nextBag } = drawNext(bag, ids);
+          if (id == null) break;
+          drawnIds.push(id);
+          bag = nextBag;
+        }
+        saveBag(bagKey, bag);
+        picked.push(...drawnIds.map((id) => questionsById[id]));
+      }
+
+      // Interleave categories for display order — this only affects the
+      // order questions appear in THIS session, not the per-category
+      // repeat-tracking above.
+      for (let i = picked.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [picked[i], picked[j]] = [picked[j], picked[i]];
+      }
+
       setOrder(picked);
       setPos(0);
       setSelected(null);
@@ -138,7 +184,8 @@ export default function StudyPage() {
         <p className="text-ink/60 dark:text-paper/60 mb-8 max-w-xl">
           Choose how many questions and which categories &mdash; when you
           pick more than one category, questions are drawn proportionally
-          to each course's real exam weight.
+          to each course's real exam weight. Within each category, you'll
+          see every question once before any repeat.
         </p>
 
         <p className="font-mono text-xs uppercase tracking-wider text-ink/50 dark:text-paper/50 mb-3">
