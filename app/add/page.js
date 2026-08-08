@@ -85,8 +85,8 @@ export default function AddPage() {
 
   return (
     <div>
-      <h1 className="font-display text-3xl text-ink mb-2">Add a question</h1>
-      <p className="text-ink/60 mb-8 max-w-xl">
+      <h1 className="font-display text-3xl text-ink dark:text-paper mb-2">Add a question</h1>
+      <p className="text-ink/60 dark:text-paper/60 mb-8 max-w-xl">
         Fill in the question, choices, correct answer, and rationale &mdash;
         the same format you already use. Then generate the ELI5 wrong-answer
         explanation and memory aid, or write your own.
@@ -98,7 +98,7 @@ export default function AddPage() {
             value={form.question}
             onChange={(e) => update("question", e.target.value)}
             rows={2}
-            className="w-full border border-ink/15 rounded-card px-4 py-2 bg-card focus:outline-none focus:border-rule"
+            className="w-full border border-ink/15 dark:border-paper/20 rounded-card px-4 py-2 bg-card dark:bg-cardDark text-ink dark:text-paper focus:outline-none focus:border-rule"
             required
           />
         </Field>
@@ -110,7 +110,7 @@ export default function AddPage() {
                 type="text"
                 value={form[`choice_${letter}`]}
                 onChange={(e) => update(`choice_${letter}`, e.target.value)}
-                className="w-full border border-ink/15 rounded-card px-4 py-2 bg-card focus:outline-none focus:border-rule"
+                className="w-full border border-ink/15 dark:border-paper/20 rounded-card px-4 py-2 bg-card dark:bg-cardDark text-ink dark:text-paper focus:outline-none focus:border-rule"
                 required
               />
             </Field>
@@ -120,7 +120,7 @@ export default function AddPage() {
               type="text"
               value={form.choice_e}
               onChange={(e) => update("choice_e", e.target.value)}
-              className="w-full border border-ink/15 rounded-card px-4 py-2 bg-card focus:outline-none focus:border-rule"
+              className="w-full border border-ink/15 dark:border-paper/20 rounded-card px-4 py-2 bg-card dark:bg-cardDark text-ink dark:text-paper focus:outline-none focus:border-rule"
             />
           </Field>
         </div>
@@ -129,7 +129,7 @@ export default function AddPage() {
           <select
             value={form.correct_answer}
             onChange={(e) => update("correct_answer", e.target.value)}
-            className="border border-ink/15 rounded-card px-4 py-2 bg-card focus:outline-none focus:border-rule"
+            className="border border-ink/15 dark:border-paper/20 rounded-card px-4 py-2 bg-card dark:bg-cardDark text-ink dark:text-paper focus:outline-none focus:border-rule"
           >
             {["A", "B", "C", "D", "E"].map((l) => (
               <option key={l} value={l}>
@@ -144,7 +144,7 @@ export default function AddPage() {
             value={form.rationale}
             onChange={(e) => update("rationale", e.target.value)}
             rows={3}
-            className="w-full border border-ink/15 rounded-card px-4 py-2 bg-card focus:outline-none focus:border-rule"
+            className="w-full border border-ink/15 dark:border-paper/20 rounded-card px-4 py-2 bg-card dark:bg-cardDark text-ink dark:text-paper focus:outline-none focus:border-rule"
             required
           />
         </Field>
@@ -156,7 +156,7 @@ export default function AddPage() {
             onChange={(e) => update("category", e.target.value)}
             list="category-options"
             placeholder="e.g. FAM905"
-            className="w-full border border-ink/15 rounded-card px-4 py-2 bg-card focus:outline-none focus:border-rule"
+            className="w-full border border-ink/15 dark:border-paper/20 rounded-card px-4 py-2 bg-card dark:bg-cardDark text-ink dark:text-paper focus:outline-none focus:border-rule"
           />
           <datalist id="category-options">
             {categories.map((c) => (
@@ -165,7 +165,7 @@ export default function AddPage() {
           </datalist>
         </Field>
 
-        <div className="border-t border-ink/10 pt-5">
+        <div className="border-t border-ink/10 dark:border-paper/15 pt-5">
           <button
             type="button"
             onClick={handleGenerate}
@@ -181,7 +181,7 @@ export default function AddPage() {
             value={form.why_wrong}
             onChange={(e) => update("why_wrong", e.target.value)}
             rows={3}
-            className="w-full border border-ink/15 rounded-card px-4 py-2 bg-card focus:outline-none focus:border-rule"
+            className="w-full border border-ink/15 dark:border-paper/20 rounded-card px-4 py-2 bg-card dark:bg-cardDark text-ink dark:text-paper focus:outline-none focus:border-rule"
           />
         </Field>
 
@@ -190,7 +190,7 @@ export default function AddPage() {
             value={form.memory_aid}
             onChange={(e) => update("memory_aid", e.target.value)}
             rows={2}
-            className="w-full border border-ink/15 rounded-card px-4 py-2 bg-card focus:outline-none focus:border-rule"
+            className="w-full border border-ink/15 dark:border-paper/20 rounded-card px-4 py-2 bg-card dark:bg-cardDark text-ink dark:text-paper focus:outline-none focus:border-rule"
           />
         </Field>
 
@@ -200,7 +200,7 @@ export default function AddPage() {
         <button
           type="submit"
           disabled={saving}
-          className="bg-ink text-paper font-mono text-xs uppercase tracking-wider px-6 py-3 rounded-card hover:bg-rule transition-colors disabled:opacity-50"
+          className="bg-ink dark:bg-paper text-paper dark:text-ink font-mono text-xs uppercase tracking-wider px-6 py-3 rounded-card hover:bg-rule dark:hover:bg-rule dark:hover:text-paper transition-colors disabled:opacity-50"
         >
           {saving ? "Saving…" : "Save question"}
         </button>
@@ -212,7 +212,7 @@ export default function AddPage() {
 function Field({ label, children }) {
   return (
     <label className="block">
-      <span className="block font-mono text-xs uppercase tracking-wider text-ink/50 mb-1">
+      <span className="block font-mono text-xs uppercase tracking-wider text-ink/50 dark:text-paper/50 mb-1">
         {label}
       </span>
       {children}

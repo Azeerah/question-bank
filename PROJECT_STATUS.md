@@ -80,6 +80,33 @@ and run again).
 8. Currently importing the 1057 questions via `scripts/import.js` — this
    is the step in progress when this file was written (see "Next steps").
 
+### D6. Dark mode (automatic, follows phone/system setting)
+Added `darkMode: "media"` in `tailwind.config.js` — every page now has
+`dark:` variants (text, backgrounds, borders) that kick in automatically
+based on the device's system dark-mode setting, no toggle needed. Dark
+palette: background/cards use a dark navy (`ink` as background, new
+`cardDark` #242E3B for card surfaces), text switches to the cream `paper`
+color. The homepage, header/nav, and all three pages (Study/Browse/Add)
+were updated. Correct/incorrect/highlight colors (green/rust/yellow) were
+left as-is in both modes — they have enough contrast on dark navy without
+needing separate dark variants. If a future edit to any page adds a new
+`text-ink` or `border-ink` class without a `dark:text-paper` /
+`dark:border-paper` pairing, it'll look wrong (invisible or low-contrast)
+in dark mode — that pairing pattern needs to be kept consistent.
+
+### D7. Daily batches: paste-in-chat workflow, not just file upload
+User has been pasting each day's new questions as plain text directly in
+chat (same Q/A-D/Correct Answer/Explanation format as the original 1057),
+rather than always uploading a Word doc. Claude parses it the same way,
+auto-dedupes any exact repeated questions (this has happened — e.g. a
+28-question batch had 3 duplicates), classifies into the existing FAM901-
+915 categories using the same keyword classifier used for the original
+1057 (see the categorization approach below), and hands back a ready
+`questions.json` for the user to drop into `scripts/` and run
+`node scripts/import.js`. This is the ongoing daily pattern going
+forward — no code changes needed for it, just repeat the same process
+each time a new batch comes in.
+
 ## Important: fields NOT yet filled in
 The 1057 imported questions only have: question, choices, correct answer,
 rationale. They do NOT yet have `why_wrong` (ELI5 explanation of why the

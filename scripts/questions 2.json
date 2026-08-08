@@ -1,0 +1,282 @@
+[
+  {
+    "question": "Function of filiform papillae on the tongue is:",
+    "choice_a": "Taste sensation",
+    "choice_b": "Mechanical role in food manipulation",
+    "choice_c": "Secretion of saliva",
+    "choice_d": "Immune defense",
+    "correct_answer": "B",
+    "rationale": "Filiform papillae are the most numerous papillae on the tongue. They are heavily keratinized and do not contain taste buds. Their primary role is to provide friction, helping in gripping, manipulating, and moving food during chewing.",
+    "category": "FAM902"
+  },
+  {
+    "question": "The tongue is primarily composed of:",
+    "choice_a": "Cartilage",
+    "choice_b": "Skeletal muscles",
+    "choice_c": "Bone",
+    "choice_d": "Connective tissue",
+    "correct_answer": "B",
+    "rationale": "The tongue consists mainly of skeletal muscle arranged as intrinsic and extrinsic muscles, allowing precise voluntary movements.",
+    "category": "FAM902"
+  },
+  {
+    "question": "X-linked dominant features include:",
+    "choice_a": "Manifestation in both males and females",
+    "choice_b": "Males often more severely affected",
+    "choice_c": "Transmission from affected mothers to 50% of offspring",
+    "choice_d": "All of the above",
+    "correct_answer": "D",
+    "rationale": "X-linked dominant disorders affect both sexes, although males are often more severely affected because they possess only one X chromosome. An affected heterozygous mother transmits the disorder to approximately 50% of her children regardless of sex.",
+    "category": "FAM904"
+  },
+  {
+    "question": "The perineum is a triangular area. Which of the following forms its borders?",
+    "choice_a": "Pubic symphysis, coccyx, ischial tuberosities",
+    "choice_b": "Iliac crest, sacrum, pubic arch",
+    "choice_c": "Coccyx, sacrum, ischial spine",
+    "choice_d": "Pubic tubercle, acetabulum, sacrum",
+    "correct_answer": "A",
+    "rationale": "The perineum is diamond-shaped. Its boundaries are: Anterior: Pubic symphysis, Posterior: Coccyx, Lateral: Ischial tuberosities.",
+    "category": "FAM902"
+  },
+  {
+    "question": "Passive transport in the stomach occurs via:",
+    "choice_a": "Sodium-glucose linked transport",
+    "choice_b": "Simple diffusion",
+    "choice_c": "Facilitated diffusion",
+    "choice_d": "Active transport",
+    "correct_answer": "B",
+    "rationale": "Water, alcohol, and lipid-soluble substances cross the gastric mucosa mainly by simple diffusion.",
+    "category": "FAM905"
+  },
+  {
+    "question": "The function of filiform papillae on the tongue is:",
+    "choice_a": "Salty taste",
+    "choice_b": "Sour taste",
+    "choice_c": "Protection/mechanical function",
+    "choice_d": "Sensation",
+    "correct_answer": "C",
+    "rationale": "Filiform papillae provide protection and mechanical assistance in handling food. They lack taste buds.",
+    "category": "FAM902"
+  },
+  {
+    "question": "The ophthalmic artery passes through which structure?",
+    "choice_a": "Optic canal",
+    "choice_b": "Superior orbital fissure",
+    "choice_c": "Foramen rotundum",
+    "choice_d": "Foramen ovale",
+    "correct_answer": "A",
+    "rationale": "The ophthalmic artery enters the orbit alongside the optic nerve through the optic canal.",
+    "category": "FAM902"
+  },
+  {
+    "question": "Which fatty acid must be obtained from the diet?",
+    "choice_a": "Palmitic acid",
+    "choice_b": "Oleic acid",
+    "choice_c": "Linoleic acid",
+    "choice_d": "Stearic acid",
+    "correct_answer": "C",
+    "rationale": "Linoleic acid is an essential omega-6 fatty acid because humans cannot synthesize it.",
+    "category": "FAM906"
+  },
+  {
+    "question": "Lymph from the medial part of the lower limb drains to:",
+    "choice_a": "Superficial inguinal nodes",
+    "choice_b": "Deep inguinal nodes",
+    "choice_c": "External iliac nodes",
+    "choice_d": "Popliteal nodes",
+    "correct_answer": "A",
+    "rationale": "Lymphatics accompanying the great saphenous vein drain the medial side of the lower limb into superficial inguinal lymph nodes.",
+    "category": "FAM902"
+  },
+  {
+    "question": "Innervation of the masseter muscle is by:",
+    "choice_a": "CN VII",
+    "choice_b": "CN IX",
+    "choice_c": "CN V3",
+    "choice_d": "CN XII",
+    "correct_answer": "C",
+    "rationale": "The masseter is supplied by the masseteric nerve, a branch of the mandibular division of the trigeminal nerve (CN V3).",
+    "category": "FAM902"
+  },
+  {
+    "question": "Innervation of the submandibular gland is via:",
+    "choice_a": "CN VII (chorda tympani)",
+    "choice_b": "CN IX",
+    "choice_c": "CN V3",
+    "choice_d": "CN X",
+    "correct_answer": "A",
+    "rationale": "Preganglionic parasympathetic fibers originate from the facial nerve, travel via the chorda tympani, join the lingual nerve, and synapse in the submandibular ganglion.",
+    "category": "FAM902"
+  },
+  {
+    "question": "Cranial nerve XII (hypoglossal) supplies:",
+    "choice_a": "Hyoglossus",
+    "choice_b": "Palatoglossus",
+    "choice_c": "Styloglossus",
+    "choice_d": "Both A and C",
+    "correct_answer": "D",
+    "rationale": "CN XII innervates all intrinsic and extrinsic tongue muscles except palatoglossus. It supplies hyoglossus and styloglossus. Palatoglossus is supplied by the vagus nerve via the pharyngeal plexus.",
+    "category": "FAM902"
+  },
+  {
+    "question": "Which neurotransmitter can be both excitatory and inhibitory?",
+    "choice_a": "Acetylcholine",
+    "choice_b": "Dopamine",
+    "choice_c": "GABA",
+    "choice_d": "Serotonin",
+    "correct_answer": "A",
+    "rationale": "Acetylcholine can produce excitation (nicotinic receptors) or inhibition (certain muscarinic receptors such as M2 in the heart), depending on receptor type and tissue.",
+    "category": "FAM905"
+  },
+  {
+    "question": "A characteristic NOT associated with the blood-brain barrier (BBB) is:",
+    "choice_a": "Opposite regulation of substance entry (incorrect statement)",
+    "choice_b": "Selective permeability",
+    "choice_c": "Tight junctions between endothelial cells",
+    "choice_d": "Supports CNS homeostasis",
+    "correct_answer": "A",
+    "rationale": "The BBB selectively regulates entry of substances through tight junctions and maintains CNS homeostasis. \"Opposite regulation of substance entry\" is not a recognized BBB feature.",
+    "category": "FAM905"
+  },
+  {
+    "question": "Filiform papillae function as:",
+    "choice_a": "Mechanoreceptors",
+    "choice_b": "Taste receptors",
+    "choice_c": "Pain receptors",
+    "choice_d": "Thermoreceptors",
+    "correct_answer": "A",
+    "rationale": "Although they lack taste buds, filiform papillae are involved in tactile sensation and mechanical handling of food.",
+    "category": "FAM905"
+  },
+  {
+    "question": "Innervation of the laryngeal area is by:",
+    "choice_a": "Vagus nerve (CN X)",
+    "choice_b": "Hypoglossal nerve (CN XII)",
+    "choice_c": "Glossopharyngeal nerve (CN IX)",
+    "choice_d": "Facial nerve (CN VII)",
+    "correct_answer": "A",
+    "rationale": "The superior and recurrent laryngeal nerves, branches of the vagus nerve, provide motor and sensory innervation to the larynx.",
+    "category": "FAM902"
+  },
+  {
+    "question": "Pure motor cranial nerves include:",
+    "choice_a": "Abducent (CN VI)",
+    "choice_b": "Optic (CN II)",
+    "choice_c": "Oculomotor (CN III)",
+    "choice_d": "Both A and C",
+    "correct_answer": "D",
+    "rationale": "Pure motor cranial nerves include CN III, IV, VI, XI, and XII. Therefore CN VI and CN III are both motor nerves.",
+    "category": "FAM902"
+  },
+  {
+    "question": "Tool commonly used for statistical research analysis:",
+    "choice_a": "SPSS",
+    "choice_b": "PowerPoint",
+    "choice_c": "Excel",
+    "choice_d": "Word",
+    "correct_answer": "A",
+    "rationale": "SPSS is specifically designed for statistical analysis in research.",
+    "category": "FAM913"
+  },
+  {
+    "question": "Tool commonly used for research referencing:",
+    "choice_a": "EndNote",
+    "choice_b": "Google",
+    "choice_c": "Zotero",
+    "choice_d": "Excel",
+    "correct_answer": "A",
+    "rationale": "EndNote is a widely used reference management software. (Note: Zotero is also correct, but EndNote is the traditional examination answer.)",
+    "category": "FAM913"
+  },
+  {
+    "question": "The antigen determining Rhesus blood type is:",
+    "choice_a": "D antigen",
+    "choice_b": "A antigen",
+    "choice_c": "C antigen",
+    "choice_d": "B antigen",
+    "correct_answer": "A",
+    "rationale": "Presence of the D antigen makes an individual Rh-positive.",
+    "category": "FAM909"
+  },
+  {
+    "question": "Esophageal peristalsis is controlled by:",
+    "choice_a": "Parasympathetic nervous system",
+    "choice_b": "Sympathetic nervous system",
+    "choice_c": "Voluntary control",
+    "choice_d": "Somatic nerves",
+    "correct_answer": "A",
+    "rationale": "Esophageal peristalsis is coordinated mainly by the vagus nerve and the enteric nervous system.",
+    "category": "FAM905"
+  },
+  {
+    "question": "Renal drug excretion depends on:",
+    "choice_a": "Protein binding",
+    "choice_b": "Cardiac output",
+    "choice_c": "Glomerular filtration rate",
+    "choice_d": "All of the above",
+    "correct_answer": "D",
+    "rationale": "Drug excretion depends on glomerular filtration rate, renal blood flow (influenced by cardiac output), and protein binding.",
+    "category": "FAM905"
+  },
+  {
+    "question": "First-pass metabolism occurs primarily:",
+    "choice_a": "In the liver",
+    "choice_b": "In the stomach",
+    "choice_c": "In systemic circulation",
+    "choice_d": "In kidneys",
+    "correct_answer": "A",
+    "rationale": "Most orally administered drugs undergo first-pass metabolism in the liver before reaching systemic circulation.",
+    "category": "FAM907"
+  },
+  {
+    "question": "Enzymes involved in first-pass metabolism include:",
+    "choice_a": "Cytochrome P450",
+    "choice_b": "Amylase",
+    "choice_c": "Lipase",
+    "choice_d": "Pepsin",
+    "correct_answer": "A",
+    "rationale": "Cytochrome P450 enzymes are responsible for metabolism of many drugs during first-pass hepatic metabolism.",
+    "category": "FAM907"
+  },
+  {
+    "question": "Urobilinogen in urine is commonly seen in:",
+    "choice_a": "Obstructive jaundice",
+    "choice_b": "Hemolytic jaundice",
+    "choice_c": "Viral hepatitis",
+    "choice_d": "Cholelithiasis",
+    "correct_answer": "B",
+    "rationale": "Increased hemolysis leads to increased bilirubin production and increased urinary urobilinogen.",
+    "category": "FAM907"
+  },
+  {
+    "question": "Stercobilinogen in stool is seen in:",
+    "choice_a": "Obstructive jaundice",
+    "choice_b": "Hemolytic jaundice",
+    "choice_c": "Viral hepatitis",
+    "choice_d": "Gallstones",
+    "correct_answer": "B",
+    "rationale": "Hemolysis increases bilirubin delivery to the intestine, increasing stercobilinogen and producing dark stools.",
+    "category": "FAM907"
+  },
+  {
+    "question": "Main cause of fecal odor is:",
+    "choice_a": "Ammonia",
+    "choice_b": "Skatole and indole",
+    "choice_c": "Urea",
+    "choice_d": "Hydrochloric acid",
+    "correct_answer": "B",
+    "rationale": "Bacterial breakdown of tryptophan produces indole and skatole, responsible for the characteristic fecal odor.",
+    "category": "Uncategorized"
+  },
+  {
+    "question": "A 30-year-old patient with obesity is considering bariatric surgery. Which BMI generally qualifies a patient without major comorbidities for surgery?",
+    "choice_a": "\u226518.5 kg/m\u00b2",
+    "choice_b": "\u226525 kg/m\u00b2",
+    "choice_c": "\u226530 kg/m\u00b2",
+    "choice_d": "\u226540 kg/m\u00b2",
+    "correct_answer": "D",
+    "rationale": "According to major guidelines (e.g., NIH, ASMBS), bariatric surgery is generally indicated for patients with a BMI \u226540 kg/m\u00b2 (severe obesity) without comorbidities, or BMI \u226535 kg/m\u00b2 with one or more obesity-related comorbidities.",
+    "category": "FAM906"
+  }
+]

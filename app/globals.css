@@ -9,7 +9,16 @@ body {
   color: #1e2a38;
 }
 
-/* Perforated top edge on the quiz card — the signature element */
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #1e2a38;
+    color: #f6f3ec;
+  }
+}
+
+/* Perforated top edge on the quiz card — the signature element.
+   The punched-out circles need to match whatever sits behind the card
+   (the page background), so they get a dark-mode variant too. */
 .punch-edge {
   position: relative;
 }
@@ -24,4 +33,9 @@ body {
   background-size: 24px 14px;
   background-position: 12px 0;
   background-repeat: repeat-x;
+}
+@media (prefers-color-scheme: dark) {
+  .punch-edge::before {
+    background-image: radial-gradient(circle, #1e2a38 5px, transparent 5.5px);
+  }
 }

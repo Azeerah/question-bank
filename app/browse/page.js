@@ -77,8 +77,8 @@ export default function BrowsePage() {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="font-display text-3xl text-ink">Browse the bank</h1>
-        <p className="font-mono text-xs uppercase tracking-wider text-ink/50">
+        <h1 className="font-display text-3xl text-ink dark:text-paper">Browse the bank</h1>
+        <p className="font-mono text-xs uppercase tracking-wider text-ink/50 dark:text-paper/50">
           {questions.length} question{questions.length === 1 ? "" : "s"}
         </p>
       </div>
@@ -89,11 +89,11 @@ export default function BrowsePage() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search question text&hellip;"
-          className="flex-1 border border-ink/15 rounded-card px-4 py-2 bg-card focus:outline-none focus:border-rule"
+          className="flex-1 border border-ink/15 dark:border-paper/20 rounded-card px-4 py-2 bg-card dark:bg-cardDark text-ink dark:text-paper focus:outline-none focus:border-rule"
         />
         <button
           type="submit"
-          className="bg-ink text-paper font-mono text-xs uppercase tracking-wider px-5 py-2 rounded-card hover:bg-rule transition-colors"
+          className="bg-ink dark:bg-paper text-paper dark:text-ink font-mono text-xs uppercase tracking-wider px-5 py-2 rounded-card hover:bg-rule dark:hover:bg-rule dark:hover:text-paper transition-colors"
         >
           Search
         </button>
@@ -108,7 +108,7 @@ export default function BrowsePage() {
               className={`font-mono text-xs uppercase tracking-wider px-3 py-1.5 rounded-card border transition-colors ${
                 activeCategory === category
                   ? "bg-rule text-paper border-rule"
-                  : "border-ink/15 text-ink/70 hover:border-rule"
+                  : "border-ink/15 dark:border-paper/20 text-ink/70 dark:text-paper/70 hover:border-rule"
               }`}
             >
               {category} <span className="opacity-60">({count})</span>
@@ -118,15 +118,15 @@ export default function BrowsePage() {
       )}
 
       {loading ? (
-        <p className="text-ink/60">Loading&hellip;</p>
+        <p className="text-ink/60 dark:text-paper/60">Loading&hellip;</p>
       ) : questions.length === 0 ? (
-        <p className="text-ink/60">No questions found.</p>
+        <p className="text-ink/60 dark:text-paper/60">No questions found.</p>
       ) : (
         <div className="space-y-3">
           {questions.map((q) => (
             <div
               key={q.id}
-              className="bg-card border border-ink/10 rounded-card p-5"
+              className="bg-card dark:bg-cardDark border border-ink/10 dark:border-paper/15 rounded-card p-5"
             >
               <button
                 onClick={() => setOpenId(openId === q.id ? null : q.id)}
@@ -136,15 +136,15 @@ export default function BrowsePage() {
                   <span className="font-mono text-[10px] uppercase tracking-wider text-rule">
                     {q.category || "Uncategorized"}
                   </span>
-                  <p className="text-ink mt-1">{q.question}</p>
+                  <p className="text-ink dark:text-paper mt-1">{q.question}</p>
                 </div>
-                <span className="font-mono text-xs text-ink/40 shrink-0">
+                <span className="font-mono text-xs text-ink/40 dark:text-paper/40 shrink-0">
                   #{q.id}
                 </span>
               </button>
 
               {openId === q.id && (
-                <div className="mt-4 pt-4 border-t border-ink/10 space-y-3 text-sm">
+                <div className="mt-4 pt-4 border-t border-ink/10 dark:border-paper/15 space-y-3 text-sm">
                   <ul className="grid gap-1">
                     {["A", "B", "C", "D", "E"]
                       .filter((letter) => letter !== "E" || q.choice_e)
@@ -154,7 +154,7 @@ export default function BrowsePage() {
                         className={
                           letter === q.correct_answer
                             ? "text-correct font-medium"
-                            : "text-ink/70"
+                            : "text-ink/70 dark:text-paper/70"
                         }
                       >
                         {letter}) {q[`choice_${letter.toLowerCase()}`]}
@@ -162,23 +162,23 @@ export default function BrowsePage() {
                       </li>
                     ))}
                   </ul>
-                  <p>
-                    <span className="font-mono text-xs uppercase text-ink/50">
+                  <p className="text-ink dark:text-paper">
+                    <span className="font-mono text-xs uppercase text-ink/50 dark:text-paper/50">
                       Rationale:{" "}
                     </span>
                     {q.rationale}
                   </p>
                   {q.why_wrong && (
-                    <p>
-                      <span className="font-mono text-xs uppercase text-ink/50">
+                    <p className="text-ink dark:text-paper">
+                      <span className="font-mono text-xs uppercase text-ink/50 dark:text-paper/50">
                         Why others are wrong:{" "}
                       </span>
                       {q.why_wrong}
                     </p>
                   )}
                   {q.memory_aid && (
-                    <p>
-                      <span className="font-mono text-xs uppercase text-ink/50">
+                    <p className="text-ink dark:text-paper">
+                      <span className="font-mono text-xs uppercase text-ink/50 dark:text-paper/50">
                         Memory aid:{" "}
                       </span>
                       {q.memory_aid}
@@ -186,7 +186,7 @@ export default function BrowsePage() {
                   )}
 
                   <div className="flex items-center gap-2 pt-2">
-                    <span className="font-mono text-xs uppercase text-ink/50">
+                    <span className="font-mono text-xs uppercase text-ink/50 dark:text-paper/50">
                       Category:
                     </span>
                     {editingCategoryId === q.id ? (
@@ -195,7 +195,7 @@ export default function BrowsePage() {
                           type="text"
                           value={categoryInput}
                           onChange={(e) => setCategoryInput(e.target.value)}
-                          className="border border-ink/15 rounded-card px-2 py-1 text-sm bg-card focus:outline-none focus:border-rule"
+                          className="border border-ink/15 dark:border-paper/20 rounded-card px-2 py-1 text-sm bg-card dark:bg-cardDark text-ink dark:text-paper focus:outline-none focus:border-rule"
                           placeholder="e.g. FAM905"
                         />
                         <button

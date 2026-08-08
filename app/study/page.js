@@ -132,14 +132,16 @@ export default function StudyPage() {
   if (stage === "setup") {
     return (
       <div>
-        <h1 className="font-display text-3xl text-ink mb-2">Set up your session</h1>
-        <p className="text-ink/60 mb-8 max-w-xl">
+        <h1 className="font-display text-3xl text-ink dark:text-paper mb-2">
+          Set up your session
+        </h1>
+        <p className="text-ink/60 dark:text-paper/60 mb-8 max-w-xl">
           Choose how many questions and which categories &mdash; when you
           pick more than one category, questions are drawn proportionally
           to each course's real exam weight.
         </p>
 
-        <p className="font-mono text-xs uppercase tracking-wider text-ink/50 mb-3">
+        <p className="font-mono text-xs uppercase tracking-wider text-ink/50 dark:text-paper/50 mb-3">
           Number of questions
         </p>
         <div className="flex gap-2 mb-8 flex-wrap">
@@ -149,8 +151,8 @@ export default function StudyPage() {
               onClick={() => setCount(n)}
               className={`font-mono text-sm px-4 py-2 rounded-card border transition-colors ${
                 count === n
-                  ? "bg-ink text-paper border-ink"
-                  : "border-ink/15 text-ink/70 hover:border-rule"
+                  ? "bg-ink dark:bg-paper text-paper dark:text-ink border-ink dark:border-paper"
+                  : "border-ink/15 dark:border-paper/20 text-ink/70 dark:text-paper/70 hover:border-rule"
               }`}
             >
               {n}
@@ -158,7 +160,7 @@ export default function StudyPage() {
           ))}
         </div>
 
-        <p className="font-mono text-xs uppercase tracking-wider text-ink/50 mb-3">
+        <p className="font-mono text-xs uppercase tracking-wider text-ink/50 dark:text-paper/50 mb-3">
           Time per question
         </p>
         <div className="flex gap-2 mb-8 flex-wrap">
@@ -168,8 +170,8 @@ export default function StudyPage() {
               onClick={() => setTimerSeconds(opt.seconds)}
               className={`font-mono text-sm px-4 py-2 rounded-card border transition-colors ${
                 timerSeconds === opt.seconds
-                  ? "bg-ink text-paper border-ink"
-                  : "border-ink/15 text-ink/70 hover:border-rule"
+                  ? "bg-ink dark:bg-paper text-paper dark:text-ink border-ink dark:border-paper"
+                  : "border-ink/15 dark:border-paper/20 text-ink/70 dark:text-paper/70 hover:border-rule"
               }`}
             >
               {opt.label}
@@ -177,13 +179,13 @@ export default function StudyPage() {
           ))}
         </div>
 
-        <p className="font-mono text-xs uppercase tracking-wider text-ink/50 mb-3">
+        <p className="font-mono text-xs uppercase tracking-wider text-ink/50 dark:text-paper/50 mb-3">
           Categories
         </p>
         {loadingCats ? (
-          <p className="text-ink/60">Loading&hellip;</p>
+          <p className="text-ink/60 dark:text-paper/60">Loading&hellip;</p>
         ) : categories.length === 0 ? (
-          <p className="text-ink/60">
+          <p className="text-ink/60 dark:text-paper/60">
             No questions yet.{" "}
             <a href="/add" className="text-rule underline">
               Add your first one.
@@ -196,7 +198,7 @@ export default function StudyPage() {
               className={`font-mono text-xs uppercase tracking-wider px-3 py-1.5 rounded-card border transition-colors ${
                 selectedCategories.length === 0
                   ? "bg-rule text-paper border-rule"
-                  : "border-ink/15 text-ink/70 hover:border-rule"
+                  : "border-ink/15 dark:border-paper/20 text-ink/70 dark:text-paper/70 hover:border-rule"
               }`}
             >
               All categories
@@ -208,7 +210,7 @@ export default function StudyPage() {
                 className={`font-mono text-xs uppercase tracking-wider px-3 py-1.5 rounded-card border transition-colors ${
                   selectedCategories.includes(category)
                     ? "bg-rule text-paper border-rule"
-                    : "border-ink/15 text-ink/70 hover:border-rule"
+                    : "border-ink/15 dark:border-paper/20 text-ink/70 dark:text-paper/70 hover:border-rule"
                 }`}
               >
                 {category} <span className="opacity-60">({catCount})</span>
@@ -222,7 +224,7 @@ export default function StudyPage() {
         <button
           onClick={startQuiz}
           disabled={starting || categories.length === 0}
-          className="bg-ink text-paper font-mono text-xs uppercase tracking-wider px-6 py-3 rounded-card hover:bg-rule transition-colors disabled:opacity-50"
+          className="bg-ink dark:bg-paper text-paper dark:text-ink font-mono text-xs uppercase tracking-wider px-6 py-3 rounded-card hover:bg-rule dark:hover:bg-rule dark:hover:text-paper transition-colors disabled:opacity-50"
         >
           {starting ? "Building session…" : "Start studying"}
         </button>
@@ -233,14 +235,16 @@ export default function StudyPage() {
   // stage === "quiz"
   if (pos >= order.length) {
     return (
-      <div className="punch-edge bg-card border border-ink/10 rounded-card p-8 text-center">
-        <h2 className="font-display text-2xl text-ink mb-2">Session complete</h2>
-        <p className="text-ink/70 mb-6">
+      <div className="punch-edge bg-card dark:bg-cardDark border border-ink/10 dark:border-paper/15 rounded-card p-8 text-center">
+        <h2 className="font-display text-2xl text-ink dark:text-paper mb-2">
+          Session complete
+        </h2>
+        <p className="text-ink/70 dark:text-paper/70 mb-6">
           You scored {score.correct} out of {score.total}.
         </p>
         <button
           onClick={() => setStage("setup")}
-          className="bg-ink text-paper font-mono text-xs uppercase tracking-wider px-6 py-3 rounded-card hover:bg-rule transition-colors"
+          className="bg-ink dark:bg-paper text-paper dark:text-ink font-mono text-xs uppercase tracking-wider px-6 py-3 rounded-card hover:bg-rule dark:hover:bg-rule dark:hover:text-paper transition-colors"
         >
           New session
         </button>
@@ -262,17 +266,17 @@ export default function StudyPage() {
       <div className="flex items-center justify-between mb-6">
         <button
           onClick={() => setStage("setup")}
-          className="font-mono text-xs uppercase tracking-wider text-ink/50 hover:text-rule"
+          className="font-mono text-xs uppercase tracking-wider text-ink/50 dark:text-paper/50 hover:text-rule"
         >
           &larr; End session
         </button>
-        <p className="font-mono text-xs uppercase tracking-wider text-ink/50">
+        <p className="font-mono text-xs uppercase tracking-wider text-ink/50 dark:text-paper/50">
           Question {pos + 1} of {order.length}
         </p>
         {timerSeconds != null && !revealed && (
           <p
             className={`font-mono text-xs uppercase tracking-wider ${
-              timeLeft <= 5 ? "text-incorrect" : "text-ink/50"
+              timeLeft <= 5 ? "text-incorrect" : "text-ink/50 dark:text-paper/50"
             }`}
           >
             {timeLeft}s
@@ -283,13 +287,13 @@ export default function StudyPage() {
         </p>
       </div>
 
-      <div className="punch-edge bg-card border border-ink/10 rounded-card p-8">
+      <div className="punch-edge bg-card dark:bg-cardDark border border-ink/10 dark:border-paper/15 rounded-card p-8">
         {current.category && (
           <p className="font-mono text-[10px] uppercase tracking-wider text-rule mb-3">
             {current.category}
           </p>
         )}
-        <h2 className="font-display text-2xl text-ink leading-snug mb-6">
+        <h2 className="font-display text-2xl text-ink dark:text-paper leading-snug mb-6">
           {current.question}
         </h2>
 
@@ -297,7 +301,7 @@ export default function StudyPage() {
           {choices.map(([letter, text]) => {
             const isCorrect = letter === current.correct_answer;
             const isSelected = letter === selected;
-            let style = "border-ink/15 hover:border-rule";
+            let style = "border-ink/15 dark:border-paper/20 hover:border-rule";
             if (revealed && isCorrect) style = "border-correct bg-correct/5";
             else if (revealed && isSelected && !isCorrect)
               style = "border-incorrect bg-incorrect/5";
@@ -306,9 +310,11 @@ export default function StudyPage() {
               <button
                 key={letter}
                 onClick={() => choose(letter)}
-                className={`text-left border rounded-card px-4 py-3 transition-colors ${style}`}
+                className={`text-left border rounded-card px-4 py-3 transition-colors text-ink dark:text-paper ${style}`}
               >
-                <span className="font-mono text-xs text-ink/50 mr-3">{letter}</span>
+                <span className="font-mono text-xs text-ink/50 dark:text-paper/50 mr-3">
+                  {letter}
+                </span>
                 {text}
               </button>
             );
@@ -316,7 +322,7 @@ export default function StudyPage() {
         </div>
 
         {revealed && (
-          <div className="mt-6 pt-6 border-t border-ink/10 space-y-4">
+          <div className="mt-6 pt-6 border-t border-ink/10 dark:border-paper/15 space-y-4">
             {selected === null && timerSeconds != null && (
               <p className="font-mono text-xs uppercase tracking-wider text-incorrect">
                 Time's up &mdash; no answer selected
@@ -326,7 +332,9 @@ export default function StudyPage() {
               <p className="font-mono text-xs uppercase tracking-wider text-correct mb-1">
                 Why {current.correct_answer} is correct
               </p>
-              <p className="text-ink/80 leading-relaxed">{current.rationale}</p>
+              <p className="text-ink/80 dark:text-paper/80 leading-relaxed">
+                {current.rationale}
+              </p>
             </div>
 
             {current.why_wrong && (
@@ -334,13 +342,15 @@ export default function StudyPage() {
                 <p className="font-mono text-xs uppercase tracking-wider text-incorrect mb-1">
                   Why the others are wrong
                 </p>
-                <p className="text-ink/80 leading-relaxed">{current.why_wrong}</p>
+                <p className="text-ink/80 dark:text-paper/80 leading-relaxed">
+                  {current.why_wrong}
+                </p>
               </div>
             )}
 
             {current.memory_aid && (
               <div className="bg-highlight/20 border border-highlight rounded-card px-4 py-3">
-                <p className="font-mono text-xs uppercase tracking-wider text-ink/60 mb-1">
+                <p className="font-mono text-xs uppercase tracking-wider text-ink/60 dark:text-ink/60 mb-1">
                   Memory aid
                 </p>
                 <p className="text-ink">{current.memory_aid}</p>
@@ -349,7 +359,7 @@ export default function StudyPage() {
 
             <button
               onClick={next}
-              className="mt-2 bg-ink text-paper font-mono text-xs uppercase tracking-wider px-5 py-3 rounded-card hover:bg-rule transition-colors"
+              className="mt-2 bg-ink dark:bg-paper text-paper dark:text-ink font-mono text-xs uppercase tracking-wider px-5 py-3 rounded-card hover:bg-rule dark:hover:bg-rule dark:hover:text-paper transition-colors"
             >
               Next question &rarr;
             </button>
