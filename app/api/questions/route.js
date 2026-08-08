@@ -10,12 +10,21 @@ export async function GET(request) {
     const search = searchParams.get("search");
     const category = searchParams.get("category");
 
-    let query = supabase.from("questions").select("*").order("id", { ascending: false });
+    let query = supabase
+      .from("questions")
+      .select("*")
+      .order("id", { ascending: false })
+      .range(0, 9999); // Supabase defaults to a 1000-row cap otherwise
 
     if (search) {
       query = query.ilike("question", `%${search}%`);
     }
-    if (category) {
+    // "Uncategorized" covers questions where category is NULL in the
+    // database, not the literal string "Uncategorized" (a couple of rows
+    // do have that literal text stored, so we match both).
+    if (category === "Uncategorized") {
+      query = query.or("category.is.null,category.eq.Uncategorized");
+    } else if (category) {
       query = query.eq("category", category);
     }
 
