@@ -1,6 +1,12 @@
 import { createClient } from '@supabase/supabase-js';
 import { NextResponse } from 'next/server';
 
+// Without this, Next.js App Router caches GET route handlers by default,
+// so this endpoint can silently keep serving stale data (e.g. missing
+// newly imported questions/categories) even though Supabase itself is
+// up to date.
+export const dynamic = 'force-dynamic';
+
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
   process.env.SUPABASE_SERVICE_ROLE_KEY
