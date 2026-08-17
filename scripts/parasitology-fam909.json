@@ -1,0 +1,12 @@
+[
+  {
+    "question": "A patient presents with perianal itching, and ova of a parasite were seen on microscopy. Which will you suspect?",
+    "choice_a": "Pinworm",
+    "choice_b": "Ascaris lumbricoides",
+    "choice_c": "Schistosoma japonicum",
+    "choice_d": "Filaria",
+    "correct_answer": "A",
+    "rationale": "Enterobius vermicularis (pinworm) classically causes perianal pruritus, especially at night; ova are detected via the scotch tape test.",
+    "category": "FAM909"
+  }
+]

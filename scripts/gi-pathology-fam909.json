@@ -1,0 +1,33 @@
+[
+  {
+    "question": "Regarding peptic ulcer, which is FALSE?",
+    "choice_a": "Caused by increased production of pepsin and HCl",
+    "choice_b": "Decreased production of bicarbonate",
+    "choice_c": "Can occur in the jejunum, stomach, duodenum, and oesophagus",
+    "choice_d": "Alcohol and coffee are risk factors",
+    "correct_answer": "C",
+    "rationale": "Peptic ulcers classically occur in the stomach, duodenum, and oesophagus, but NOT the jejunum, making this the false statement.",
+    "category": "FAM909"
+  },
+  {
+    "question": "Regarding the gallbladder, which is FALSE?",
+    "choice_a": "Cholesterol stone is formed in people with hepatic problems",
+    "choice_b": "Poor muscle tone may cause stone formation",
+    "choice_c": "Taking medications like omeprazole is a risk factor",
+    "choice_d": "Female gender is not a risk factor",
+    "correct_answer": "A",
+    "rationale": "Pigment stones \u2014 not cholesterol stones \u2014 form in hepatic problems such as hemolysis or cirrhosis, making this the false statement. Cholesterol stones are linked to obesity, female gender, high-fat diets, and statin use.",
+    "category": "FAM909"
+  },
+  {
+    "question": "Regarding inflammatory bowel disease, which is FALSE?",
+    "choice_a": "Crohn's disease occurs anywhere along the GI tract",
+    "choice_b": "Ulcerative colitis is confined to the colon",
+    "choice_c": "Crohn's first symptom includes pain in the lower right abdomen",
+    "choice_d": "In Crohn's disease, patient is relieved by defecation",
+    "choice_e": "Histologic findings involve presence of granulomas in colitis",
+    "correct_answer": "E",
+    "rationale": "Granulomas are a histologic hallmark of Crohn's disease, NOT ulcerative colitis, making this the false statement.",
+    "category": "FAM909"
+  }
+]

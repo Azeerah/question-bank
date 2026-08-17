@@ -1,0 +1,12 @@
+[
+  {
+    "question": "Which antidepressant is preferable in a patient with seizure disorder due to reduced seizure risk?",
+    "choice_a": "Fluoxetine",
+    "choice_b": "Amitriptyline",
+    "choice_c": "Duloxetine",
+    "choice_d": "Imipramine",
+    "correct_answer": "A",
+    "rationale": "Fluoxetine (SSRI) carries a lower seizure risk than tricyclic antidepressants (amitriptyline, imipramine), which lower the seizure threshold.",
+    "category": "FAM908"
+  }
+]

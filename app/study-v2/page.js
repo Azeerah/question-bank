@@ -10,12 +10,13 @@ const POOL_MODES = [
 ];
 
 export default function StudyV2Page() {
-  const [view, setView] = useState('setup'); // 'setup' | 'quiz' | 'history'
+  const [view, setView] = useState('setup'); // 'setup' | 'quiz' | 'summary' | 'history'
   const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState('');
   const [poolMode, setPoolMode] = useState('new');
 
   const [questionsById, setQuestionsById] = useState({});
+  const [poolIds, setPoolIds] = useState([]);
   const [bag, setBag] = useState(null);
   const [bagKey, setBagKey] = useState(null);
 
@@ -23,6 +24,7 @@ export default function StudyV2Page() {
   const [selected, setSelected] = useState(null);
   const [revealed, setRevealed] = useState(false);
   const [sessionStats, setSessionStats] = useState({ correct: 0, total: 0 });
+  const [sessionMissedIds, setSessionMissedIds] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -79,7 +81,9 @@ export default function StudyV2Page() {
       const initialBag = existingBag || createBag(ids);
 
       setBagKey(key);
+      setPoolIds(ids);
       setSessionStats({ correct: 0, total: 0 });
+      setSessionMissedIds([]);
       advance(initialBag, ids, key);
       setView('quiz');
     } catch (e) {
@@ -87,6 +91,21 @@ export default function StudyV2Page() {
     } finally {
       setLoading(false);
     }
+  }
+
+  // Starts an ad-hoc session over a fixed list of ids, bypassing the
+  // saved/persisted bag entirely — used for the "retry failed now" button
+  // at the end of a session, which is scoped to just-missed questions and
+  // shouldn't collide with or overwrite the real per-filter bag in storage.
+  function startAdHocSession(ids, keyLabel) {
+    const key = `adhoc:${keyLabel}:${Date.now()}`;
+    const freshBag = createBag(ids);
+    setBagKey(key);
+    setPoolIds(ids);
+    setSessionStats({ correct: 0, total: 0 });
+    setSessionMissedIds([]);
+    advance(freshBag, ids, key);
+    setView('quiz');
   }
 
   function advance(bagState, ids, key) {
@@ -98,27 +117,43 @@ export default function StudyV2Page() {
     setRevealed(false);
   }
 
-  async function submitAnswer() {
-    if (!selected || !currentId) return;
+  async function selectAndSubmit(letter) {
+    if (revealed || !currentId) return;
     const q = questionsById[currentId];
-    const correct = selected === q.correct_answer;
+    const correct = letter === q.correct_answer;
+    setSelected(letter);
     setRevealed(true);
     setSessionStats((s) => ({ correct: s.correct + (correct ? 1 : 0), total: s.total + 1 }));
+    if (!correct) {
+      setSessionMissedIds((ids) => (ids.includes(currentId) ? ids : [...ids, currentId]));
+    }
 
     try {
       await fetch('/api/attempts', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ questionId: currentId, selectedAnswer: selected, correct }),
+        body: JSON.stringify({ questionId: currentId, selectedAnswer: letter, correct }),
       });
     } catch {
       // Logging failure shouldn't block studying — the question is still shown correctly.
     }
   }
 
+  // The bag serves each id exactly once before reshuffling for a new cycle,
+  // so the session is "done" the moment total answers reaches the pool size.
+  const isSessionComplete = sessionStats.total >= poolIds.length;
+
   function nextQuestion() {
+    if (isSessionComplete) {
+      setView('summary');
+      return;
+    }
     const ids = bag.shuffledOrder; // list doesn't change mid-session in this prototype
     advance(bag, ids, bagKey);
+  }
+
+  function retryFailedNow() {
+    startAdHocSession(sessionMissedIds, 'session-retry');
   }
 
   async function openHistory() {
@@ -227,7 +262,7 @@ export default function StudyV2Page() {
                     <button
                       key={letter}
                       disabled={revealed}
-                      onClick={() => setSelected(letter)}
+                      onClick={() => selectAndSubmit(letter)}
                       className={`w-full text-left rounded-lg border px-4 py-3 transition-colors ${
                         isCorrectChoice
                           ? 'border-emerald-600 bg-emerald-50 dark:bg-emerald-900/30'
@@ -272,20 +307,45 @@ export default function StudyV2Page() {
               >
                 Change filters
               </button>
-              {!revealed ? (
-                <button
-                  onClick={submitAnswer}
-                  disabled={!selected}
-                  className="flex-1 rounded-lg bg-gray-900 dark:bg-paper text-white dark:text-ink font-semibold py-2 disabled:opacity-50"
-                >
-                  Submit
-                </button>
-              ) : (
+              {revealed && (
                 <button
                   onClick={nextQuestion}
                   className="flex-1 rounded-lg bg-gray-900 dark:bg-paper text-white dark:text-ink font-semibold py-2"
                 >
-                  Next question
+                  {isSessionComplete ? 'Finish session' : 'Next question'}
+                </button>
+              )}
+            </div>
+          </div>
+        )}
+
+        {view === 'summary' && (
+          <div className="space-y-6">
+            <div className="rounded-xl border border-gray-200 dark:border-paper/10 bg-white dark:bg-cardDark p-6 text-center">
+              <p className="text-sm text-gray-500 dark:text-paper/60 mb-1">Session complete</p>
+              <p className="text-3xl font-bold mb-2">
+                {sessionStats.correct}/{sessionStats.total}
+              </p>
+              <p className="text-sm text-gray-600 dark:text-paper/70">
+                {sessionMissedIds.length === 0
+                  ? 'No misses this round — nice work.'
+                  : `${sessionMissedIds.length} question${sessionMissedIds.length === 1 ? '' : 's'} to revisit.`}
+              </p>
+            </div>
+
+            <div className="flex gap-3">
+              <button
+                onClick={() => setView('setup')}
+                className="flex-1 rounded-lg border border-gray-300 dark:border-paper/20 px-4 py-3 text-sm font-medium"
+              >
+                Back to setup
+              </button>
+              {sessionMissedIds.length > 0 && (
+                <button
+                  onClick={retryFailedNow}
+                  className="flex-1 rounded-lg bg-emerald-600 text-white font-semibold py-3"
+                >
+                  Retry failed now
                 </button>
               )}
             </div>

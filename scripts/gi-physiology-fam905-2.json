@@ -1,0 +1,192 @@
+[
+  {
+    "question": "An 8-month-old infant develops constipation. Which difference between cow's milk and breast milk explains this?",
+    "choice_a": "Cow milk has high whey:casein ratio",
+    "choice_b": "Breast milk has high whey:casein ratio",
+    "choice_c": "Cow milk has high fat content",
+    "choice_d": "Breast milk has high carbohydrate content",
+    "correct_answer": "B",
+    "rationale": "Breast milk has a higher whey:casein ratio, forming softer, more digestible curds. Cow milk's higher casein content forms harder curds, which can contribute to constipation.",
+    "category": "FAM905-2"
+  },
+  {
+    "question": "Stomach secretion, true EXCEPT:",
+    "choice_a": "Irritation of the mucosa causes greater mucus production",
+    "choice_b": "Intrinsic factor helps in the absorption of vitamin B12 in the duodenum",
+    "choice_c": "G cells secrete gastrin which stimulates HCl production",
+    "choice_d": "ECL cells secrete histamine",
+    "correct_answer": "B",
+    "rationale": "Intrinsic factor enables vitamin B12 absorption in the terminal ileum, NOT the duodenum, making this the false statement. All other statements are true.",
+    "category": "FAM905-2"
+  },
+  {
+    "question": "HCl functions include all EXCEPT:",
+    "choice_a": "Kills bacteria",
+    "choice_b": "Converts ferrous ion to ferric ion",
+    "choice_c": "Inactivates salivary amylase, slowing carbohydrate digestion",
+    "choice_d": "Activates pepsinogen to pepsin",
+    "correct_answer": "B",
+    "rationale": "HCl actually converts ferric iron (Fe3+) to ferrous iron (Fe2+) to aid absorption \u2014 the reverse of what's stated \u2014 so this is the false option.",
+    "category": "FAM905-2"
+  },
+  {
+    "question": "Concerning deglutition, which statement is TRUE?",
+    "choice_a": "Stimulation of swallowing receptors starts it",
+    "choice_b": "Contraction of pharyngeal muscles",
+    "choice_c": "Transmission of sensory fibres from 5, 9, and 10 cranial nerves",
+    "choice_d": "Transmission of motor nerves 5, 9, 10, and 12",
+    "choice_e": "Peristaltic wave begins in pharynx and passes to stomach in 8-10 seconds",
+    "correct_answer": "E",
+    "rationale": "All the listed statements about deglutition are true (CN V, IX, and X do carry sensory fibres for swallowing), but the peristaltic wave timing \u2014 about 8-10 seconds from pharynx to stomach \u2014 is the most concrete, unambiguous fact to test.",
+    "category": "FAM905-2"
+  },
+  {
+    "question": "Which of the following is the most classic accessory gland of the digestive system?",
+    "choice_a": "Pancreas",
+    "choice_b": "Liver",
+    "choice_c": "Gall bladder",
+    "choice_d": "Salivary glands",
+    "choice_e": "Spleen",
+    "correct_answer": "A",
+    "rationale": "The accessory digestive glands are the salivary glands, liver, and pancreas (the gallbladder is a storage organ, not a gland, and the spleen is not part of the digestive system). The pancreas is the most frequently tested example given its combined exocrine (digestive enzymes) and endocrine (insulin/glucagon) roles.",
+    "category": "FAM905-2"
+  },
+  {
+    "question": "Which of the following is FALSE regarding salivary glands?",
+    "choice_a": "Parotid gland \u2013 mucus secretion",
+    "choice_b": "Sublingual \u2013 mostly mucus",
+    "choice_c": "Submandibular \u2013 mixed with serous and mucus secretion",
+    "choice_d": "Only B and C is correct",
+    "correct_answer": "A",
+    "rationale": "The parotid gland secretes purely serous saliva, not mucus. The sublingual gland is mostly mucous, and the submandibular is mixed serous/mucous.",
+    "category": "FAM905-2"
+  },
+  {
+    "question": "Which of the following is FALSE regarding pancreatic juice?",
+    "choice_a": "Secretin and CCK are duodenal hormones",
+    "choice_b": "Secretin regulates gastric acid secretion and pancreatic bicarbonate release",
+    "choice_c": "CCK is the only hormone that slows down gastric emptying",
+    "choice_d": "ACh affects pancreatic secretion",
+    "choice_e": "Pancreatic juice is higher in bicarbonate than sodium",
+    "correct_answer": "C",
+    "rationale": "CCK is not the only hormone that slows gastric emptying \u2014 secretin and GIP also do \u2014 making this statement false. All other statements are true.",
+    "category": "FAM905-2"
+  },
+  {
+    "question": "Concerning the small intestine, all are correct EXCEPT:",
+    "choice_a": "Duodenum \u2013 begins digestion of nucleic acid",
+    "choice_b": "Jejunum \u2013 begins absorption of protein, carbohydrate, water-soluble vitamins",
+    "choice_c": "Ileum \u2013 continues and completes digestion of carbohydrate, protein, lipid, and nucleic acid",
+    "choice_d": "Absorption of vitamin B12 occurs in the ileum",
+    "choice_e": "All correct",
+    "correct_answer": "E",
+    "rationale": "All statements are correct.",
+    "category": "FAM905-2"
+  },
+  {
+    "question": "Which is TRUE regarding contact digestion?",
+    "choice_a": "Contact digestion occurs when brush border enzymes are released into the lumen",
+    "choice_b": "Contact digestion occurs when chyme comes in contact with the brush border",
+    "choice_c": "The mucosa of the small intestine has Kerckring's folds that increase surface area",
+    "choice_d": "Crypts of Lieberk\u00fchn produce intestinal juice",
+    "choice_e": "Secretion is regulated by enteric nervous reflexes",
+    "correct_answer": "B",
+    "rationale": "Contact digestion is defined by chyme contacting membrane-bound brush border enzymes \u2014 those enzymes are never released into the lumen (making A false). C, D, and E are also true, but B is the defining statement of contact digestion itself.",
+    "category": "FAM905-2"
+  },
+  {
+    "question": "Substances secreted by the small intestine include:",
+    "choice_a": "Insulin-like growth factor",
+    "choice_b": "Somatostatin",
+    "choice_c": "Glucose-dependent insulinotropic peptide (GIP)",
+    "choice_d": "Vasoactive intestinal peptide (VIP)",
+    "choice_e": "Cholecystokinin (CCK)",
+    "correct_answer": "E",
+    "rationale": "Somatostatin, GIP, VIP, and CCK are all secreted by the small intestine (insulin-like growth factor is not). CCK, from I cells, is the most classically tested intestinal hormone, triggering gallbladder contraction and pancreatic enzyme release.",
+    "category": "FAM905-2"
+  },
+  {
+    "question": "Which substance is secreted by endocrine cells of the GI tract?",
+    "choice_a": "Secretin",
+    "choice_b": "Enkephalin",
+    "choice_c": "Somatostatin",
+    "choice_d": "GLP-1",
+    "correct_answer": "C",
+    "rationale": "Somatostatin, secreted by D cells, is the classic endocrine cell product tested here (secretin from S cells, enkephalin from enteric neurons, and GLP-1 from L cells are also GI secretions).",
+    "category": "FAM905-2"
+  },
+  {
+    "question": "Concerning the colon, which is FALSE?",
+    "choice_a": "Mixing movement slows propulsive effect by 8-15 hours",
+    "choice_b": "Propulsive movement begins as constrictive ring in the ascending colon",
+    "choice_c": "Propulsive movement normally occurs 1-3 times a day",
+    "choice_d": "Propulsive movement is enhanced by gastrocolic reflexes",
+    "correct_answer": "B",
+    "rationale": "Mass movement constrictive rings begin in the transverse colon, NOT the ascending colon \u2014 this is the false statement. All other statements are true.",
+    "category": "FAM905-2"
+  },
+  {
+    "question": "Which of the following is FALSE regarding GI secretion volumes?",
+    "choice_a": "Saliva secretes 0.5-1.5 L/day",
+    "choice_b": "Gastric juice 1.5-2 L/day",
+    "choice_c": "Bile 0.5-1 L/day",
+    "choice_d": "Pancreatic juice 3 L/day",
+    "choice_e": "Intestinal juice 1-2 L/day",
+    "correct_answer": "D",
+    "rationale": "Normal pancreatic juice output is about 1-1.5 L/day, not 3 L/day, making this the false figure. The other ranges given are accurate.",
+    "category": "FAM905-2"
+  },
+  {
+    "question": "Digestion and absorption of carbohydrates: Which is FALSE?",
+    "choice_a": "Absorption of glucose and galactose is by sodium-dependent active transport",
+    "choice_b": "Absorption of fructose is by active transport",
+    "choice_c": "One molecule of sucrose gives 1 glucose and 1 fructose",
+    "choice_d": "One molecule of lactose gives 1 glucose and 1 galactose",
+    "choice_e": "One molecule of maltose gives 2 glucose",
+    "correct_answer": "B",
+    "rationale": "Fructose is absorbed by facilitated diffusion via GLUT5, NOT active transport, making this the false statement.",
+    "category": "FAM905-2"
+  },
+  {
+    "question": "Which is FALSE regarding digestion and absorption?",
+    "choice_a": "Digestion of carbohydrate begins in the mouth",
+    "choice_b": "Protein digestion begins in the stomach",
+    "choice_c": "Lipid digestion begins in the mouth",
+    "choice_d": "Iron is absorbed in the duodenum",
+    "choice_e": "Vitamin B12 and bile salts are absorbed in the jejunum",
+    "correct_answer": "E",
+    "rationale": "Vitamin B12 and bile salts are absorbed in the terminal ileum, NOT the jejunum, making this the false statement.",
+    "category": "FAM905-2"
+  },
+  {
+    "question": "Regarding vomiting, which is FALSE?",
+    "choice_a": "Is a complex coordination by the hypothalamus",
+    "choice_b": "Can be induced by stimulation of the vestibular center",
+    "choice_c": "Consequences include intestinal obstruction",
+    "choice_d": "Treatment is mostly by intravenous fluid",
+    "choice_e": "Only C and B are correct",
+    "correct_answer": "A",
+    "rationale": "Vomiting is coordinated by the medulla oblongata's vomiting center, NOT the hypothalamus, making this the false statement.",
+    "category": "FAM905-2"
+  },
+  {
+    "question": "Which phase of gastric juice secretion accounts for the largest proportion of acid output?",
+    "choice_a": "Cephalic",
+    "choice_b": "Gastric",
+    "choice_c": "Intestinal",
+    "choice_d": "Anal",
+    "correct_answer": "B",
+    "rationale": "The three phases of gastric secretion are cephalic, gastric, and intestinal ('anal' is not a recognized phase). The gastric phase, triggered by food distending the stomach and local gastrin release, contributes the largest share (roughly 60-70%) of total acid secretion.",
+    "category": "FAM905-2"
+  },
+  {
+    "question": "Which statement best describes extrinsic regulation of the digestive system?",
+    "choice_a": "Stress receptors \u2013 mechanical and chemical stimuli",
+    "choice_b": "Osmolality and presence of substrate in the lumen",
+    "choice_c": "Extrinsic regulation is controlled by CNS centers",
+    "choice_d": "The intrinsic nervous system is not involved in digestive regulation",
+    "correct_answer": "C",
+    "rationale": "Extrinsic regulation of the GI tract is carried out through central nervous system centers via autonomic (parasympathetic/sympathetic) pathways. (Note: D is false \u2014 the intrinsic enteric nervous system, i.e., myenteric and submucosal plexuses, is also very much involved.)",
+    "category": "FAM905-2"
+  }
+]
